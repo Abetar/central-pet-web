@@ -7,12 +7,11 @@ import { motion } from "framer-motion";
 const INFO = {
   nombre: "Central Pet",
   telefono: "+52 33 2355 3635",
-  whatsapp: "5233235536358", // sin signos + para la URL
-  direccion: "Av. Siempre Viva 742, Tlajomulco, Jalisco",
+  whatsapp: "523323553635", // sin signos + para la URL
+  direccion: "Carretera Nextipac Km. 1 La Venta del Astillero, 45221 Zapopan, Jal.",
   horario: "Lun-Vie 10:00–21:00\nSab 10:00–18:00\nDom 10:00–16:00", // con saltos de línea
-  email: "contacto@centralpet.mx",
   googleMaps:
-    "https://maps.google.com/?q=Av.+Siempre+Viva+742,+Tlajomulco,+Jalisco",
+    "https://maps.google.com/?q=Central+Pet,+20.7392495,-103.540059",
 };
 
 // URLs de ejemplo: reemplaza con los enlaces reales de tus reseñas
@@ -208,11 +207,10 @@ export default function Page() {
     name: INFO.nombre,
     url: "https://centralpet.mx",
     telephone: INFO.telefono,
-    email: INFO.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Av. Siempre Viva 742",
-      addressLocality: "Tlajomulco",
+      streetAddress: "Carretera Nextipac Km. 1 La Venta del Astillero",
+      addressLocality: "Zapopan",
       addressRegion: "Jalisco",
       addressCountry: "MX",
     },
@@ -503,12 +501,6 @@ export default function Page() {
                 target="_blank"
               >
                 Abrir chat
-              </a>
-            </p>
-            <p>
-              <strong>Email:</strong>{" "}
-              <a className="underline" href={`mailto:${INFO.email}`}>
-                {INFO.email}
               </a>
             </p>
 
