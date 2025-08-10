@@ -1,103 +1,533 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
-export default function Home() {
+const INFO = {
+  nombre: "Central Pet",
+  telefono: "+52 33 2355 3635",
+  whatsapp: "5233235536358", // sin signos + para la URL
+  direccion: "Av. Siempre Viva 742, Tlajomulco, Jalisco",
+  horario: "Lun-Vie 10:00–21:00\nSab 10:00–18:00\nDom 10:00–16:00", // con saltos de línea
+  email: "contacto@centralpet.mx",
+  googleMaps:
+    "https://maps.google.com/?q=Av.+Siempre+Viva+742,+Tlajomulco,+Jalisco",
+};
+
+// URLs de ejemplo: reemplaza con los enlaces reales de tus reseñas
+const TESTIMONIOS = [
+  {
+    texto: "Muy buena veterinaria, excelente atención médica y servicio de baño profesional 😌…",
+    autor: "Nicolas MVZ.",
+    url: "https://maps.app.goo.gl/LDCtaPcssqePCSqx5",
+  },
+  {
+    texto: "El doctor fue muy amable y me explicó todo lo que pasaba con mi gatita. Es un plus que esté abierto todos los días en caso de alguna emergencia, como me pasó a mí.",
+    autor: "Illo Farfán.",
+    url: "https://maps.app.goo.gl/noYJZ9s1eU5nuTMM9",
+  },
+  {
+    texto: "Excelente servicio, sucursal limpia, fueron rápidos, amables y muy profesionales 100% recomendados para cualquier procedimiento",
+    autor: "Edmundo Parada.",
+    url: "https://maps.app.goo.gl/8EabcwuMa233NvFYA",
+  },
+];
+
+const Section = ({
+  id,
+  children,
+  className = "",
+}: {
+  id: string;
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <section id={id} className={`max-w-7xl mx-auto px-6 py-20 ${className}`}>
+    {children}
+  </section>
+);
+
+/** Construye y codifica el mensaje para WhatsApp */
+function buildWhatsAppMessage({
+  nombre,
+  telefono,
+  mascota,
+  servicio,
+  fecha,
+  mensaje,
+}: {
+  nombre: string;
+  telefono: string;
+  mascota: string;
+  servicio: string;
+  fecha: string;
+  mensaje: string;
+}) {
+  const lines = [
+    `Hola, me gustaría agendar una cita 👋`,
+    `• Nombre: ${nombre || "-"}`,
+    `• Teléfono: ${telefono || "-"}`,
+    `• Mascota: ${mascota || "-"}`,
+    `• Servicio: ${servicio || "-"}`,
+    `• Fecha preferida: ${fecha || "-"}`,
+    `• Comentarios: ${mensaje || "-"}`,
+  ];
+  return encodeURIComponent(lines.join("\n"));
+}
+
+/** Form que arma el mensaje y redirige a WhatsApp */
+function WhatsAppForm({ waNumber }: { waNumber: string }) {
+  const [nombre, setNombre] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [mascota, setMascota] = useState("");
+  const [servicio, setServicio] = useState("Consulta general");
+  const [fecha, setFecha] = useState("");
+  const [mensaje, setMensaje] = useState("");
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const text = buildWhatsAppMessage({
+      nombre,
+      telefono,
+      mascota,
+      servicio,
+      fecha,
+      mensaje,
+    });
+    const url = `https://wa.me/${waNumber}?text=${text}`;
+    window.location.href = url; // o window.open(url, "_blank")
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <form onSubmit={onSubmit} className="space-y-4">
+      <div className="grid md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-on-light">
+            Nombre*
+          </label>
+          <input
+            required
+            type="text"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+            placeholder="Tu nombre"
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        <div>
+          <label className="block text-sm font-medium text-on-light">
+            Teléfono
+          </label>
+          <input
+            type="tel"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+            className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+            placeholder="Ej. 3312345678"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-on-light">
+            Mascota
+          </label>
+          <input
+            type="text"
+            value={mascota}
+            onChange={(e) => setMascota(e.target.value)}
+            className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+            placeholder="Nombre o especie/raza"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-on-light">
+            Servicio
+          </label>
+          <select
+            value={servicio}
+            onChange={(e) => setServicio(e.target.value)}
+            className="w-full rounded-xl border px-3 py-2 outline-none bg-white focus:ring-2 focus:ring-[var(--color-primary)]"
+          >
+            <option>Consulta general</option>
+            <option>Vacunas y desparasitación</option>
+            <option>Urgencias</option>
+            <option>Estética y baño</option>
+            <option>Cirugía y esterilización</option>
+            <option>Laboratorio y estudios</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-on-light">
+            Fecha preferida
+          </label>
+          <input
+            type="date"
+            value={fecha}
+            onChange={(e) => setFecha(e.target.value)}
+            className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
           />
-          Go to nextjs.org →
-        </a>
+        </div>
+        <div className="flex items-end">
+          <button type="submit" className="btn-primary w-full md:w-auto">
+            Enviar por WhatsApp
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-on-light">
+          Comentarios
+        </label>
+        <textarea
+          value={mensaje}
+          onChange={(e) => setMensaje(e.target.value)}
+          rows={4}
+          className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+          placeholder="Describe síntomas, horarios, notas…"
+        />
+      </div>
+    </form>
+  );
+}
+
+export default function Page() {
+  const whatsappUrl = `https://wa.me/${INFO.whatsapp}?text=${encodeURIComponent(
+    "Hola, me gustaría agendar una cita 👋"
+  )}`;
+  const telUrl = `tel:${INFO.telefono.replace(/\s+/g, "")}`;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "VeterinaryCare",
+    name: INFO.nombre,
+    url: "https://centralpet.mx",
+    telephone: INFO.telefono,
+    email: INFO.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Av. Siempre Viva 742",
+      addressLocality: "Tlajomulco",
+      addressRegion: "Jalisco",
+      addressCountry: "MX",
+    },
+    openingHours: "Mo-Su 09:00-20:00",
+    sameAs: [INFO.googleMaps],
+  };
+
+  return (
+    <>
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* NAV */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
+        <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+          <div className="font-semibold text-[var(--color-brown)]">
+            🐾 {INFO.nombre}
+          </div>
+          <ul className="hidden md:flex items-center gap-6 text-sm text-on-light">
+            <li>
+              <a href="#servicios" className="hover:underline">
+                Servicios
+              </a>
+            </li>
+            <li>
+              <a href="#nosotros" className="hover:underline">
+                Nosotros
+              </a>
+            </li>
+            <li>
+              <a href="#testimonios" className="hover:underline">
+                Testimonios
+              </a>
+            </li>
+            <li>
+              <a href="#faq" className="hover:underline">
+                FAQ
+              </a>
+            </li>
+            <li>
+              <a href="#contacto" className="hover:underline">
+                Contacto
+              </a>
+            </li>
+          </ul>
+          <div className="flex items-center gap-3">
+            <a href={whatsappUrl} className="btn-primary">
+              Agendar por WhatsApp
+            </a>
+          </div>
+        </nav>
+      </header>
+
+      {/* HERO (fondo oscuro -> texto blanco) */}
+      <section className="relative overflow-hidden text-on-dark">
+        <div className="absolute inset-0 bg-[var(--color-primary)]" />
+        <div className="absolute inset-0">
+          <Image
+            src="/perrito.png"
+            alt="Veterinaria cuidando un cachorro"
+            fill
+            priority
+            className="object-cover opacity-30 mix-blend-multiply"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/70" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-6 py-28">
+          <motion.h1
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl md:text-6xl font-bold leading-tight"
+          >
+            Cuidado integral para tu mascota
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="mt-5 max-w-2xl text-lg opacity-90"
+          >
+            Consultas, vacunas, urgencias y estética. Atención cálida,
+            diagnósticos claros y seguimiento real.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="mt-8 flex flex-wrap gap-4"
+          >
+            <a href={whatsappUrl} className="btn-primary">
+              Agendar por WhatsApp
+            </a>
+            <a href={telUrl} className="btn-secondary">
+              Llamar: {INFO.telefono}
+            </a>
+          </motion.div>
+
+          <div className="mt-8 text-sm opacity-85">
+            {INFO.direccion} •{" "}
+            <span style={{ whiteSpace: "pre-line" }}>{INFO.horario}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICIOS (fondo claro -> texto oscuro) */}
+      <Section id="servicios" className="text-on-light">
+        <div className="flex items-center gap-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
+            Servicios
+          </h2>
+          <span className="tag-accent">Shop &amp; Shower</span>
+        </div>
+        <p className="mt-3 text-gray-600">
+          Todo lo esencial para su salud y bienestar.
+        </p>
+
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              t: "Consulta general",
+              d: "Evaluación, diagnóstico y plan de tratamiento.",
+            },
+            {
+              t: "Vacunas y desparasitación",
+              d: "Calendario completo para cachorros y adultos.",
+            },
+            { t: "Urgencias", d: "Atención rápida en situaciones críticas." },
+            { t: "Estética y baño", d: "Baño, corte y cuidado dermatológico." },
+            {
+              t: "Cirugía y esterilización",
+              d: "Protocolos seguros y control del dolor.",
+            },
+            {
+              t: "Laboratorio y estudios",
+              d: "Análisis hematológicos, imagen y más.",
+            },
+          ].map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
+              className="card"
+            >
+              <h3 className="font-semibold text-lg text-[var(--color-brown)]">
+                {s.t}
+              </h3>
+              <p className="mt-2 text-gray-600">{s.d}</p>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
+
+      {/* NOSOTROS */}
+      <Section id="nosotros" className="py-24 text-on-light">
+        <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
+              Equipo cercano y profesional
+            </h2>
+            <p className="mt-4 text-gray-600">
+              Somos un equipo con años de experiencia clínica y un trato humano.
+              Te explicamos cada decisión médica con claridad y opciones.
+            </p>
+            <div className="mt-6 flex gap-3">
+              <a href={whatsappUrl} className="btn-primary">
+                Agendar cita
+              </a>
+              <a href="#contacto" className="btn-secondary">
+                Cómo llegar
+              </a>
+            </div>
+          </div>
+          <div className="relative h-72 md:h-96 rounded-2xl overflow-hidden">
+            <Image
+              src="/perrito.png"
+              alt="Equipo veterinario"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </Section>
+
+      {/* TESTIMONIOS -> cards clickeables con efecto “levantar” */}
+      <Section id="testimonios" className="text-on-light">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
+          Testimonios
+        </h2>
+        <div className="mt-8 grid md:grid-cols-3 gap-6">
+          {TESTIMONIOS.map((c, i) => (
+            <a
+              key={i}
+              href={c.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card transition duration-200 hover:shadow-lg transform hover:-translate-y-1 cursor-pointer block"
+              aria-label={`Abrir reseña de ${c.autor} en Google Maps`}
+            >
+              <p className="text-gray-700 italic">“{c.texto}”</p>
+              <footer className="mt-3 text-sm text-gray-500">
+                — {c.autor}
+              </footer>
+              <span className="mt-4 inline-block text-sm text-[var(--color-secondary)] underline">
+                Ver reseña en Google Maps
+              </span>
+            </a>
+          ))}
+        </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section id="faq" className="text-on-light">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
+          Preguntas frecuentes
+        </h2>
+        <div className="mt-6 space-y-4">
+          {[
+            {
+              q: "¿Atienden urgencias?",
+              a: "Sí. Recomendamos avisar por WhatsApp para preparar el ingreso.",
+            },
+            {
+              q: "¿Trabajan con citas?",
+              a: "Sí. Agenda por WhatsApp para evitar esperas.",
+            },
+            {
+              q: "¿Aceptan todas las razas y especies?",
+              a: "Perros y gatos. Para especies exóticas, consúltanos primero.",
+            },
+          ].map((f, i) => (
+            <details key={i} className="rounded-xl border bg-white p-4">
+              <summary className="cursor-pointer font-medium">{f.q}</summary>
+              <p className="mt-2 text-gray-600">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </Section>
+
+      {/* CONTACTO */}
+      <Section id="contacto" className="text-on-light">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
+          Contacto
+        </h2>
+        <div className="mt-6 grid lg:grid-cols-2 gap-8">
+          {/* Formulario */}
+          <div className="card">
+            <h3 className="text-xl font-semibold text-[var(--color-brown)] mb-4">
+              Agenda por WhatsApp
+            </h3>
+            <WhatsAppForm waNumber={INFO.whatsapp} />
+            <p className="mt-3 text-sm text-gray-500">
+              Al enviar, te redirigiremos a WhatsApp con el mensaje armado.
+            </p>
+          </div>
+
+          {/* Info + mapa */}
+          <div className="space-y-3 text-gray-700">
+            <p>
+              <strong>Dirección:</strong> {INFO.direccion}
+            </p>
+            <p>
+              <strong>Horario:</strong>{" "}
+              <span style={{ whiteSpace: "pre-line" }}>{INFO.horario}</span>
+            </p>
+            <p>
+              <strong>Teléfono:</strong>{" "}
+              <a
+                className="underline text-[var(--color-secondary)]"
+                href={telUrl}
+              >
+                {INFO.telefono}
+              </a>
+            </p>
+            <p>
+              <strong>WhatsApp directo:</strong>{" "}
+              <a
+                className="underline text-[var(--color-secondary)]"
+                href={`https://wa.me/${INFO.whatsapp}`}
+                target="_blank"
+              >
+                Abrir chat
+              </a>
+            </p>
+            <p>
+              <strong>Email:</strong>{" "}
+              <a className="underline" href={`mailto:${INFO.email}`}>
+                {INFO.email}
+              </a>
+            </p>
+
+            <iframe
+              title="Mapa Google"
+              className="w-full h-80 rounded-2xl border"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              src={`${INFO.googleMaps}&output=embed`}
+            />
+          </div>
+        </div>
+      </Section>
+
+      {/* FOOTER */}
+      <footer className="border-t py-8 text-center text-sm text-gray-500">
+        © {new Date().getFullYear()} {INFO.nombre}. Todos los derechos
+        reservados.
       </footer>
-    </div>
+    </>
   );
 }
