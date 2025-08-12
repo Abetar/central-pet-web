@@ -95,34 +95,28 @@ function WhatsAppForm({ waNumber }: { waNumber: string }) {
       mensaje,
     });
     const url = `https://wa.me/${waNumber}?text=${text}`;
-    window.location.href = url; // o window.open(url, "_blank")
+    window.location.href = url;
   };
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={onSubmit} className="form space-y-4">
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-on-light">
-            Nombre*
-          </label>
+          <label>Nombre*</label>
           <input
             required
             type="text"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             placeholder="Tu nombre"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-on-light">
-            Teléfono
-          </label>
+          <label>Teléfono</label>
           <input
             type="tel"
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
-            className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             placeholder="Ej. 3312345678"
           />
         </div>
@@ -130,25 +124,19 @@ function WhatsAppForm({ waNumber }: { waNumber: string }) {
 
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-on-light">
-            Mascota
-          </label>
+          <label>Mascota</label>
           <input
             type="text"
             value={mascota}
             onChange={(e) => setMascota(e.target.value)}
-            className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             placeholder="Nombre o especie/raza"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-on-light">
-            Servicio
-          </label>
+          <label>Servicio</label>
           <select
             value={servicio}
             onChange={(e) => setServicio(e.target.value)}
-            className="w-full rounded-xl border px-3 py-2 outline-none bg-white focus:ring-2 focus:ring-[var(--color-primary)]"
           >
             <option>Consulta general</option>
             <option>Vacunas y desparasitación</option>
@@ -162,14 +150,11 @@ function WhatsAppForm({ waNumber }: { waNumber: string }) {
 
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-on-light">
-            Fecha preferida
-          </label>
+          <label>Fecha preferida</label>
           <input
             type="date"
             value={fecha}
             onChange={(e) => setFecha(e.target.value)}
-            className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
           />
         </div>
         <div className="flex items-end">
@@ -180,20 +165,19 @@ function WhatsAppForm({ waNumber }: { waNumber: string }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-on-light">
-          Comentarios
-        </label>
+        <label>Comentarios</label>
         <textarea
           value={mensaje}
           onChange={(e) => setMensaje(e.target.value)}
           rows={4}
-          className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
           placeholder="Describe síntomas, horarios, notas…"
         />
+        <p className="help">Ej. tos leve desde ayer, prefiere tarde.</p> 
       </div>
     </form>
   );
 }
+
 
 export default function Page() {
   const whatsappUrl = `https://wa.me/${INFO.whatsapp}?text=${encodeURIComponent(
