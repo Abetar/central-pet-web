@@ -1,143 +1,83 @@
-@import "tailwindcss";
-
-/* ====== Tokens base (Light) ====== */
+/* ===== Campos de formulario (tokens) ===== */
 :root {
-  /* Superficies y texto */
-  --background: #ffffff;
-  --surface:   #ffffff;
-  --surface-2: #f8fafc;
-  --foreground:#222222;      /* texto principal */
-  --muted:     #6b7280;      /* texto secundario */
-
-  /* Marca */
-  --color-primary:        #2EC7D3;  /* turquesa */
-  --color-primary-hover:  #1FAAB6;
-  --color-secondary:      #E3433B;  /* rojo */
-  --color-secondary-hover:#C7312A;
-  --color-brown:          #4B2E2A;  /* usado en títulos */
-  --color-accent:         #F5C542;  /* amarillo para tags */
-
-  /* Bordes y sombras (light) */
-  --border-color: rgba(0,0,0,0.08);
-  --shadow-sm:    0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md:    0 4px 10px rgba(0,0,0,0.08);
-
-  --font-sans: Inter, ui-sans-serif, system-ui, Arial, sans-serif;
+  --field-bg: #ffffff;
+  --field-border: rgba(0,0,0,0.12);
+  --field-text: #1f2937;          /* gris 800 */
+  --field-placeholder: #9ca3af;   /* gris 400 */
+  --field-ring: rgba(46,199,211,0.35); /* turquesa con alpha */
+  --field-focus: var(--color-primary);
+  --label: #374151;               /* gris 700 */
+  --help: #6b7280;                /* gris 500 */
 }
 
-/* ====== Dark Mode (auto por preferencia del SO) ====== */
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Superficies y texto */
-    --background: #0b0f12;     /* fondo base */
-    --surface:   #101418;      /* cartas/barras */
-    --surface-2: #0d1216;      /* superficies más profundas */
-    --foreground:#f2f5f7;      /* texto principal claro */
-    --muted:     #c5ced8;      /* texto secundario claro */
-
-    /* Marca: mantenemos turquesa/rojo, pero aclaramos el "brown" para títulos */
-    --color-primary:        #2EC7D3;
-    --color-primary-hover:  #5bd9e3;
-    --color-secondary:      #ff6a61;   /* un poco más claro en dark */
-    --color-secondary-hover:#ff5146;
-    --color-brown:          #e8d5cf;   /* << clave: sustituye al chocolate oscuro en dark */
-    --color-accent:         #ffd866;   /* amarillo más luminoso */
-
-    /* Bordes y sombras (dark) */
-    --border-color: rgba(255,255,255,0.12);
-    --shadow-sm:    0 1px 3px rgba(0,0,0,0.5);
-    --shadow-md:    0 8px 18px rgba(0,0,0,0.55);
+    --field-bg: #0f1418;                  /* superficie oscura */
+    --field-border: rgba(255,255,255,0.16);
+    --field-text: #e5e7eb;                /* gris 200 */
+    --field-placeholder: #9aa4af;         /* gris claro */
+    --field-ring: rgba(91,217,227,0.35);  /* turquesa más vivo */
+    --field-focus: #5bd9e3;
+    --label: #e5e7eb;                     /* claro para labels */
+    --help: #c5ced8;
   }
 }
 
-/* ====== Base ====== */
-html, body { height: 100%; }
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Utilidades de contraste explícitas (por si las necesitas) */
-.text-on-dark { color: #ffffff; }
-.text-on-light { color: #222222; }
-
-/* ====== Componentes ====== */
-
-/* Botón principal */
-.btn-primary {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 1rem;
-  background-color: var(--color-primary);
-  color: #ffffff;
-  font-weight: 500;
-  border: none;
-  box-shadow: var(--shadow-sm);
-  transition: background-color .2s ease, box-shadow .2s ease, transform .1s ease;
-}
-.btn-primary:hover {
-  background-color: var(--color-primary-hover);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
-}
-
-/* Botón secundario */
-.btn-secondary {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 1rem;
-  border: 1px solid var(--color-secondary);
-  background-color: transparent;
-  color: var(--color-secondary);
-  font-weight: 500;
-  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
-}
-.btn-secondary:hover {
-  /* mezcla ligera que funciona en light y dark */
-  background-color: color-mix(in oklab, var(--color-secondary), transparent 85%);
-}
-
-/* Tarjetas */
-.card {
-  border-radius: 1rem;
-  border: 1px solid var(--border-color);
-  background-color: var(--surface);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow .2s ease, transform .15s ease, border-color .2s ease, background-color .2s ease;
-}
-.card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-/* Etiqueta/acento */
-.tag-accent {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
+/* ===== Estilos del formulario (scope por .form) ===== */
+.form label {
+  display: block;
   font-size: 0.875rem;
-  font-weight: 600;
-  background-color: var(--color-accent);
-  color: #20262e; /* buen contraste sobre el amarillo en ambos modos */
+  font-weight: 500;
+  color: var(--label);
+  margin-bottom: 0.375rem;
 }
 
-/* Títulos que usaban el "chocolate" */
-.heading-brown,
-.text-brown {
-  color: var(--color-brown);
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  background-color: var(--field-bg);
+  color: var(--field-text);
+  border: 1px solid var(--field-border);
+  border-radius: 0.75rem; /* 12px */
+  padding: 0.5rem 0.75rem; /* 8px 12px */
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
 }
 
-/* Links de acción (tel/whatsapp/maps) */
-a.link-action {
-  color: var(--color-secondary);
-  text-decoration: underline;
+.form input::placeholder,
+.form textarea::placeholder {
+  color: var(--field-placeholder);
 }
-a.link-action:hover {
-  color: var(--color-secondary-hover);
+
+/* Focus visible */
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  border-color: var(--field-focus);
+  box-shadow: 0 0 0 3px var(--field-ring);
+}
+
+/* Deshabilitados */
+.form input:disabled,
+.form select:disabled,
+.form textarea:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+/* Ayuda/errores */
+.form .help {
+  font-size: 0.8125rem;
+  color: var(--help);
+  margin-top: 0.25rem;
+}
+
+/* Autofill WebKit (evita amarillo) */
+.form input:-webkit-autofill,
+.form input:-webkit-autofill:hover,
+.form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--field-text);
+  -webkit-box-shadow: 0 0 0px 1000px var(--field-bg) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
