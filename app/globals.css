@@ -1,5 +1,30 @@
-/* ===== Campos de formulario (tokens) ===== */
+@import "tailwindcss";
+
+/* =========================
+   TOKENS BASE (LIGHT MODE)
+   ========================= */
 :root {
+  /* Superficies y texto */
+  --background: #ffffff;
+  --surface:   #ffffff;  /* cartas/nav */
+  --surface-2: #f8fafc;
+  --foreground:#222222;  /* texto principal */
+  --muted:     #6b7280;  /* texto secundario */
+
+  /* Marca */
+  --color-primary:        #2EC7D3;  /* turquesa */
+  --color-primary-hover:  #1FAAB6;
+  --color-secondary:      #E3433B;  /* rojo */
+  --color-secondary-hover:#C7312A;
+  --color-brown:          #4B2E2A;  /* títulos/marcadores */
+  --color-accent:         #F5C542;  /* amarillo para tags */
+
+  /* Bordes y sombras (light) */
+  --border-color: rgba(0,0,0,0.08);
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md:    0 4px 10px rgba(0,0,0,0.08);
+
+  /* Formularios (light) */
   --field-bg: #ffffff;
   --field-border: rgba(0,0,0,0.12);
   --field-text: #1f2937;          /* gris 800 */
@@ -8,22 +33,148 @@
   --field-focus: var(--color-primary);
   --label: #374151;               /* gris 700 */
   --help: #6b7280;                /* gris 500 */
+
+  --font-sans: Inter, ui-sans-serif, system-ui, Arial, sans-serif;
 }
 
+/* =========================
+   DARK MODE (según SO)
+   ========================= */
 @media (prefers-color-scheme: dark) {
   :root {
-    --field-bg: #0f1418;                  /* superficie oscura */
+    /* Superficies y texto */
+    --background: #0b0f12;   /* fondo base */
+    --surface:   #101418;    /* cartas/barras */
+    --surface-2: #0d1216;
+    --foreground:#f2f5f7;    /* texto principal claro */
+    --muted:     #c5ced8;    /* texto secundario claro */
+
+    /* Marca (ajustes para contraste) */
+    --color-primary:        #2EC7D3;
+    --color-primary-hover:  #5bd9e3;
+    --color-secondary:      #ff6a61;   /* rojo más luminoso */
+    --color-secondary-hover:#ff5146;
+    --color-brown:          #e8d5cf;   /* << reemplaza “chocolate” oscuro en dark */
+    --color-accent:         #ffd866;   /* amarillo más luminoso */
+
+    /* Bordes y sombras (dark) */
+    --border-color: rgba(255,255,255,0.12);
+    --shadow-sm:    0 1px 3px rgba(0,0,0,0.5);
+    --shadow-md:    0 8px 18px rgba(0,0,0,0.55);
+
+    /* Formularios (dark) */
+    --field-bg: #0f1418;
     --field-border: rgba(255,255,255,0.16);
-    --field-text: #e5e7eb;                /* gris 200 */
-    --field-placeholder: #9aa4af;         /* gris claro */
-    --field-ring: rgba(91,217,227,0.35);  /* turquesa más vivo */
+    --field-text: #e5e7eb;           /* gris 200 */
+    --field-placeholder: #9aa4af;    /* gris claro */
+    --field-ring: rgba(91,217,227,0.35);
     --field-focus: #5bd9e3;
-    --label: #e5e7eb;                     /* claro para labels */
+    --label: #e5e7eb;
     --help: #c5ced8;
   }
 }
 
-/* ===== Estilos del formulario (scope por .form) ===== */
+/* =========================
+   BASE
+   ========================= */
+html, body { height: 100%; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Utilidades de contraste explícitas (por si las necesitas) */
+.text-on-dark { color: #ffffff; }
+.text-on-light { color: #222222; }
+
+/* =========================
+   BOTONES
+   ========================= */
+.btn-primary {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 500;
+  border: none;
+  box-shadow: var(--shadow-sm);
+  transition: background-color .2s ease, box-shadow .2s ease, transform .1s ease;
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-secondary);
+  background-color: transparent;
+  color: var(--color-secondary);
+  font-weight: 500;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+.btn-secondary:hover {
+  /* mezcla ligera que funciona en light y dark */
+  background-color: color-mix(in oklab, var(--color-secondary), transparent 85%);
+}
+
+/* =========================
+   TARJETAS
+   ========================= */
+.card {
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s ease, transform .15s ease, border-color .2s ease, background-color .2s ease;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* =========================
+   TAG / BADGE
+   ========================= */
+.tag-accent {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: var(--color-accent);
+  color: #20262e; /* buen contraste en ambos modos */
+}
+
+/* =========================
+   TIPOGRAFÍA DE MARCA
+   ========================= */
+.heading-brown,
+.text-brown { color: var(--color-brown); }
+
+/* Links de acción (tel/whatsapp/maps) */
+a.link-action {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+a.link-action:hover {
+  color: var(--color-secondary-hover);
+}
+
+/* =========================
+   FORMULARIOS
+   (usa <form class="form"> ... </form>)
+   ========================= */
 .form label {
   display: block;
   font-size: 0.875rem;
@@ -73,7 +224,7 @@
   margin-top: 0.25rem;
 }
 
-/* Autofill WebKit (evita amarillo) */
+/* Autofill WebKit (evita fondo amarillo) */
 .form input:-webkit-autofill,
 .form input:-webkit-autofill:hover,
 .form input:-webkit-autofill:focus {
