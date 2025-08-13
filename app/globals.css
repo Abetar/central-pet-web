@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
-/* ========= Central Pet – Aqua & Brown Theme (Safe Colors) ========= */
-:root{
+/* ====== SIEMPRE LIGHT MODE ====== */
+:root {
+  color-scheme: light; /* fuerza UI clara (inputs, scrollbars, etc.) */
+
   /* Base */
-  --background:#FAFCFD;     /* blanco cálido */
+  --background:#FAFCFD;
   --surface:#FFFFFF;
   --surface-2:#F3F7F9;
-  --foreground:#1F2630;     /* texto principal */
-  --muted:#4A5568;          /* gris más oscuro para contraste */
+  --foreground:#1F2630;
+  --muted:#4A5568;
 
-  /* Marca (del logo) */
-  --color-primary:#2EC7D3;          /* turquesa del aro */
+  /* Marca (logo) */
+  --color-primary:#2EC7D3;
   --color-primary-hover:#1AAFB9;
-  --color-brown:#4A3A35;            /* café suavizado y más visible */
-  --color-secondary:#E33A3A;        /* rojo del techo */
+  --color-brown:#3B2A26;
+  --color-secondary:#E33A3A;
   --color-secondary-hover:#C82F2F;
-  --color-accent:#F5C542;           /* amarillo ventanitas */
+  --color-accent:#F5C542;
 
   /* Bordes & sombras */
   --border-color:rgba(20,27,36,.15);
@@ -24,9 +26,9 @@
 
   /* Formularios */
   --field-bg:#FFFFFF;
-  --field-border:rgba(20,27,36,.2);
+  --field-border:rgba(20,27,36,.20);
   --field-text:#1F2630;
-  --field-placeholder:#6B7280; /* gris intermedio */
+  --field-placeholder:#6B7280;
   --field-ring:rgba(46,199,211,.35);
   --field-focus:var(--color-primary);
 
@@ -43,71 +45,72 @@ body{
   text-rendering:optimizeLegibility;
 }
 
-/* Utilidades de texto */
-.text-on-dark{color:#FFFFFF}
-.text-on-light{color:var(--foreground)}
-.heading-brown,.text-brown{color:var(--color-brown)}
+/* Texto utilidades (estáticas) */
+.text-default{ color: var(--foreground); }
+.text-muted{ color: var(--muted); }
+.heading-brown,.text-brown{ color: var(--color-brown); }
 
-/* Navbar sólido */
+/* NAVBAR fijo oscuro (siempre) */
 .nav-solid{
   background:var(--color-brown);
   color:#fff;
   border-bottom:1px solid rgba(255,255,255,.08);
 }
-.nav-solid a{color:rgba(255,255,255,.92)}
-.nav-solid a:hover{color:#fff}
+.nav-solid a{ color:rgba(255,255,255,.92) }
+.nav-solid a:hover{ color:#fff }
 
 /* Botones */
 .btn-primary{
-  display:inline-block;padding:.75rem 1.25rem;border-radius:9999px;
-  background:var(--color-primary);color:#fff;font-weight:600;border:none;
-  box-shadow:var(--shadow-sm);transition:transform .1s,box-shadow .2s,background .2s;
+  display:inline-block; padding:.75rem 1.25rem; border-radius:9999px;
+  background:var(--color-primary); color:#fff; font-weight:600; border:none;
+  box-shadow:var(--shadow-sm);
+  transition:transform .1s, box-shadow .2s, background .2s;
 }
-.btn-primary:hover{background:var(--color-primary-hover);box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.btn-primary:hover{ background:var(--color-primary-hover); box-shadow:var(--shadow-md); transform:translateY(-1px) }
 
 .btn-secondary{
-  display:inline-block;padding:.75rem 1.25rem;border-radius:9999px;
-  border:1px solid var(--color-brown);background:transparent;color:var(--color-brown);
-  font-weight:600;transition:background .2s,color .2s,border-color .2s;
+  display:inline-block; padding:.75rem 1.25rem; border-radius:9999px;
+  border:1px solid var(--color-brown); background:transparent; color:var(--color-brown);
+  font-weight:600; transition:background .2s, color .2s, border-color .2s;
 }
-.btn-secondary:hover{background:rgba(74,58,53,.08)}
+.btn-secondary:hover{ background:rgba(59,42,38,.08) }
 
 /* Tarjetas */
 .card{
-  border-radius:20px;border:1px solid var(--border-color);
-  background:var(--surface);padding:1.25rem;box-shadow:var(--shadow-sm);
-  transition:box-shadow .2s,transform .15s,background .2s,border-color .2s;
+  border-radius:20px; border:1px solid var(--border-color);
+  background:var(--surface); padding:1.25rem; box-shadow:var(--shadow-sm);
+  transition:box-shadow .2s, transform .15s, background .2s, border-color .2s;
 }
-.card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.card:hover{ box-shadow:var(--shadow-md); transform:translateY(-2px) }
 
-/* Chips / Tags */
+/* Tag / Chip */
 .tag-accent{
-  display:inline-flex;align-items:center;gap:.4rem;
-  padding:.25rem .65rem;border-radius:9999px;font-size:.85rem;font-weight:700;
-  background:var(--color-accent);color:#1E293B;
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:.25rem .65rem; border-radius:9999px; font-size:.85rem; font-weight:700;
+  background:var(--color-accent); color:#1E293B;
 }
 
 /* Enlaces de acción */
-a.link-action{color:var(--color-secondary);text-decoration:underline}
-a.link-action:hover{color:var(--color-secondary-hover)}
+a.link-action{ color:var(--color-secondary); text-decoration:underline }
+a.link-action:hover{ color:var(--color-secondary-hover) }
 
-/* Hero helpers */
-.hero-aqua{background:linear-gradient(180deg,#2EC7D3 0%,#1AAFB9 100%);color:#fff}
+/* Hero helper (opcional) */
+.hero-aqua{ background:linear-gradient(180deg,#2EC7D3 0%,#1AAFB9 100%); color:#fff }
 
 /* Formularios */
 .form label{
-  display:block;font-size:.9rem;font-weight:600;color:var(--foreground);margin-bottom:.4rem;
+  display:block; font-size:.9rem; font-weight:600; color:var(--foreground); margin-bottom:.4rem;
 }
 .form input,.form select,.form textarea{
-  width:100%;background:var(--field-bg);color:var(--field-text);
-  border:1px solid var(--field-border);border-radius:14px;padding:.6rem .8rem;outline:none;
-  transition:border-color .2s,box-shadow .2s,background .2s,color .2s;
+  width:100%; background:var(--field-bg); color:var(--field-text);
+  border:1px solid var(--field-border); border-radius:14px; padding:.6rem .8rem; outline:none;
+  transition:border-color .2s, box-shadow .2s, background .2s, color .2s;
 }
-.form input::placeholder,.form textarea::placeholder{color:var(--field-placeholder)}
+.form input::placeholder,.form textarea::placeholder{ color:var(--field-placeholder) }
 .form input:focus,.form select:focus,.form textarea:focus{
-  border-color:var(--field-focus);box-shadow:0 0 0 3px var(--field-ring);
+  border-color:var(--field-focus); box-shadow:0 0 0 3px var(--field-ring);
 }
-.form .help{font-size:.8rem;color:var(--muted);margin-top:.25rem}
+.form .help{ font-size:.8rem; color:var(--muted); margin-top:.25rem }
 
 /* Autofill */
 .form input:-webkit-autofill,
@@ -118,5 +121,5 @@ a.link-action:hover{color:var(--color-secondary-hover)}
   transition:background-color 5000s ease-in-out 0s;
 }
 
-/* Borde fino para iframes/imagenes */
-.thin-border{border:1px solid var(--border-color);border-radius:16px}
+/* Borde fino */
+.thin-border{ border:1px solid var(--border-color); border-radius:16px }
