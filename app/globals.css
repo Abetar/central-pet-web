@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
-/* ========= Central Pet – Aqua & Brown Theme ========= */
+/* ========= Central Pet – Aqua & Brown Theme (Safe Colors) ========= */
 :root{
   /* Base */
   --background:#FAFCFD;     /* blanco cálido */
   --surface:#FFFFFF;
   --surface-2:#F3F7F9;
   --foreground:#1F2630;     /* texto principal */
-  --muted:#667085;          /* texto secundario */
+  --muted:#4A5568;          /* gris más oscuro para contraste */
 
   /* Marca (del logo) */
   --color-primary:#2EC7D3;          /* turquesa del aro */
   --color-primary-hover:#1AAFB9;
-  --color-brown:#3B2A26;            /* contorno café del logo */
+  --color-brown:#4A3A35;            /* café suavizado y más visible */
   --color-secondary:#E33A3A;        /* rojo del techo */
   --color-secondary-hover:#C82F2F;
   --color-accent:#F5C542;           /* amarillo ventanitas */
 
   /* Bordes & sombras */
-  --border-color:rgba(20,27,36,.10);
+  --border-color:rgba(20,27,36,.15);
   --shadow-sm:0 1px 3px rgba(16,24,40,.08);
   --shadow-md:0 10px 24px rgba(16,24,40,.12);
 
   /* Formularios */
   --field-bg:#FFFFFF;
-  --field-border:rgba(20,27,36,.16);
+  --field-border:rgba(20,27,36,.2);
   --field-text:#1F2630;
-  --field-placeholder:#98A2B3;
+  --field-placeholder:#6B7280; /* gris intermedio */
   --field-ring:rgba(46,199,211,.35);
   --field-focus:var(--color-primary);
 
@@ -45,10 +45,10 @@ body{
 
 /* Utilidades de texto */
 .text-on-dark{color:#FFFFFF}
-.text-on-light{color:#1F2630}
+.text-on-light{color:var(--foreground)}
 .heading-brown,.text-brown{color:var(--color-brown)}
 
-/* Navbar sólido (recomendado: pon esta clase en tu <header>) */
+/* Navbar sólido */
 .nav-solid{
   background:var(--color-brown);
   color:#fff;
@@ -70,7 +70,7 @@ body{
   border:1px solid var(--color-brown);background:transparent;color:var(--color-brown);
   font-weight:600;transition:background .2s,color .2s,border-color .2s;
 }
-.btn-secondary:hover{background:rgba(59,42,38,.06)}
+.btn-secondary:hover{background:rgba(74,58,53,.08)}
 
 /* Tarjetas */
 .card{
@@ -91,12 +91,12 @@ body{
 a.link-action{color:var(--color-secondary);text-decoration:underline}
 a.link-action:hover{color:var(--color-secondary-hover)}
 
-/* Hero helpers (opcional) */
+/* Hero helpers */
 .hero-aqua{background:linear-gradient(180deg,#2EC7D3 0%,#1AAFB9 100%);color:#fff}
 
 /* Formularios */
 .form label{
-  display:block;font-size:.9rem;font-weight:600;color:#334155;margin-bottom:.4rem;
+  display:block;font-size:.9rem;font-weight:600;color:var(--foreground);margin-bottom:.4rem;
 }
 .form input,.form select,.form textarea{
   width:100%;background:var(--field-bg);color:var(--field-text);
@@ -107,7 +107,7 @@ a.link-action:hover{color:var(--color-secondary-hover)}
 .form input:focus,.form select:focus,.form textarea:focus{
   border-color:var(--field-focus);box-shadow:0 0 0 3px var(--field-ring);
 }
-.form .help{font-size:.8rem;color:#667085;margin-top:.25rem}
+.form .help{font-size:.8rem;color:var(--muted);margin-top:.25rem}
 
 /* Autofill */
 .form input:-webkit-autofill,
