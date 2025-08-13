@@ -213,13 +213,7 @@ export default function Page() {
       {/* NAV: SIEMPRE light, usando .nav-solid del globals.css */}
       <header className="sticky top-0 z-50 nav-solid">
         <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-          <div
-            style={{
-              color: "var(--color-primary)",
-              fontWeight: 700,
-              fontSize: "1.125rem",
-            }}
-          >
+          <div className="font-bold text-lg" style={{ color: "#ffffff" }}>
             🐾 {INFO.nombre}
           </div>
 
@@ -318,16 +312,30 @@ export default function Page() {
           </h2>
           <span className="tag-accent">Shop &amp; Shower</span>
         </div>
-        <p className="mt-3 text-muted">Todo lo esencial para su salud y bienestar.</p>
+        <p className="mt-3 text-muted">
+          Todo lo esencial para su salud y bienestar.
+        </p>
 
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            { t: "Consulta general", d: "Evaluación, diagnóstico y plan de tratamiento." },
-            { t: "Vacunas y desparasitación", d: "Calendario completo para cachorros y adultos." },
+            {
+              t: "Consulta general",
+              d: "Evaluación, diagnóstico y plan de tratamiento.",
+            },
+            {
+              t: "Vacunas y desparasitación",
+              d: "Calendario completo para cachorros y adultos.",
+            },
             { t: "Urgencias", d: "Atención rápida en situaciones críticas." },
             { t: "Estética y baño", d: "Baño, corte y cuidado dermatológico." },
-            { t: "Cirugía y esterilización", d: "Protocolos seguros y control del dolor." },
-            { t: "Laboratorio y estudios", d: "Análisis hematológicos, imagen y más." },
+            {
+              t: "Cirugía y esterilización",
+              d: "Protocolos seguros y control del dolor.",
+            },
+            {
+              t: "Laboratorio y estudios",
+              d: "Análisis hematológicos, imagen y más.",
+            },
           ].map((s, i) => (
             <motion.div
               key={i}
@@ -337,7 +345,9 @@ export default function Page() {
               transition={{ duration: 0.4, delay: i * 0.05 }}
               className="card"
             >
-              <h3 className="font-semibold text-lg text-[var(--color-brown)]">{s.t}</h3>
+              <h3 className="font-semibold text-lg text-[var(--color-brown)]">
+                {s.t}
+              </h3>
               <p className="mt-2 text-muted">{s.d}</p>
             </motion.div>
           ))}
@@ -356,19 +366,30 @@ export default function Page() {
               Te explicamos cada decisión médica con claridad y opciones.
             </p>
             <div className="mt-6 flex gap-3">
-              <a href={whatsappUrl} className="btn-primary">Agendar cita</a>
-              <a href="#contacto" className="btn-secondary">Cómo llegar</a>
+              <a href={whatsappUrl} className="btn-primary">
+                Agendar cita
+              </a>
+              <a href="#contacto" className="btn-secondary">
+                Cómo llegar
+              </a>
             </div>
           </div>
           <div className="relative h-72 md:h-96 rounded-2xl overflow-hidden">
-            <Image src="/perrito.png" alt="Equipo veterinario" fill className="object-cover" />
+            <Image
+              src="/perrito.png"
+              alt="Equipo veterinario"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
       </Section>
 
       {/* TESTIMONIOS */}
       <Section id="testimonios" className="text-on-light">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">Testimonios</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
+          Testimonios
+        </h2>
         <div className="mt-8 grid md:grid-cols-3 gap-6">
           {TESTIMONIOS.map((c, i) => (
             <a
@@ -380,7 +401,9 @@ export default function Page() {
               aria-label={`Abrir reseña de ${c.autor} en Google Maps`}
             >
               <p className="italic text-default">“{c.texto}”</p>
-              <footer className="mt-3 text-sm" style={{ color: "#6b7280" }}>— {c.autor}</footer>
+              <footer className="mt-3 text-sm" style={{ color: "#6b7280" }}>
+                — {c.autor}
+              </footer>
               <span className="mt-4 inline-block text-sm text-[var(--color-secondary)] underline">
                 Ver reseña en Google Maps
               </span>
@@ -391,15 +414,28 @@ export default function Page() {
 
       {/* FAQ */}
       <Section id="faq" className="text-on-light">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">Preguntas frecuentes</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
+          Preguntas frecuentes
+        </h2>
         <div className="mt-6 space-y-4">
           {[
-            { q: "¿Atienden urgencias?", a: "Sí. Recomendamos avisar por WhatsApp para preparar el ingreso." },
-            { q: "¿Trabajan con citas?", a: "Sí. Agenda por WhatsApp para evitar esperas." },
-            { q: "¿Aceptan todas las razas y especies?", a: "Perros y gatos. Para especies exóticas, consúltanos primero." },
+            {
+              q: "¿Atienden urgencias?",
+              a: "Sí. Recomendamos avisar por WhatsApp para preparar el ingreso.",
+            },
+            {
+              q: "¿Trabajan con citas?",
+              a: "Sí. Agenda por WhatsApp para evitar esperas.",
+            },
+            {
+              q: "¿Aceptan todas las razas y especies?",
+              a: "Perros y gatos. Para especies exóticas, consúltanos primero.",
+            },
           ].map((f, i) => (
             <details key={i} className="rounded-xl border bg-white p-4">
-              <summary className="cursor-pointer font-medium text-default">{f.q}</summary>
+              <summary className="cursor-pointer font-medium text-default">
+                {f.q}
+              </summary>
               <p className="mt-2 text-muted">{f.a}</p>
             </details>
           ))}
@@ -408,7 +444,9 @@ export default function Page() {
 
       {/* CONTACTO */}
       <Section id="contacto" className="text-on-light">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">Contacto</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
+          Contacto
+        </h2>
         <div className="mt-6 grid lg:grid-cols-2 gap-8">
           <div className="card">
             <h3 className="text-xl font-semibold text-[var(--color-brown)] mb-4">
@@ -421,14 +459,19 @@ export default function Page() {
           </div>
 
           <div className="space-y-3 text-default">
-            <p><strong>Dirección:</strong> {INFO.direccion}</p>
+            <p>
+              <strong>Dirección:</strong> {INFO.direccion}
+            </p>
             <p>
               <strong>Horario:</strong>{" "}
               <span style={{ whiteSpace: "pre-line" }}>{INFO.horario}</span>
             </p>
             <p>
               <strong>Teléfono:</strong>{" "}
-              <a className="underline text-[var(--color-secondary)]" href={telUrl}>
+              <a
+                className="underline text-[var(--color-secondary)]"
+                href={telUrl}
+              >
                 {INFO.telefono}
               </a>
             </p>
@@ -455,9 +498,20 @@ export default function Page() {
       </Section>
 
       {/* FOOTER */}
-      <footer className="border-t py-8 text-center text-sm" style={{ color: "#6b7280", borderColor: "var(--border-color)" }}>
-        © {new Date().getFullYear()} {INFO.nombre}. Todos los derechos reservados.
-        <a href="https://agsolutions.dev/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline font-medium">AG Solution Dev</a>
+      <footer
+        className="border-t py-8 text-center text-sm"
+        style={{ color: "#6b7280", borderColor: "var(--border-color)" }}
+      >
+        © {new Date().getFullYear()} {INFO.nombre}. Todos los derechos
+        reservados.
+        <a
+          href="https://agsolutions.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gold hover:underline font-medium"
+        >
+          AG Solution Dev
+        </a>
       </footer>
     </>
   );
