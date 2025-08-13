@@ -236,7 +236,7 @@ export default function Page() {
         <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
           <div
             style={{
-              color: isDark ? "#2EC7D3" : "#4a4340",
+              color: isDark ? "#4a4340" : "#4a4340",
               fontWeight: 600,
               fontSize: "1.125rem",
             }}
