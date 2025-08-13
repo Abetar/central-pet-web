@@ -1,125 +1,157 @@
 @import "tailwindcss";
 
-/* ====== SIEMPRE LIGHT MODE ====== */
 :root {
-  color-scheme: light; /* fuerza UI clara (inputs, scrollbars, etc.) */
+  color-scheme: light; /* Fuerza modo claro incluso en UI del navegador */
 
-  /* Base */
-  --background:#FAFCFD;
-  --surface:#FFFFFF;
-  --surface-2:#F3F7F9;
-  --foreground:#1F2630;
-  --muted:#4A5568;
+  /* Colores base */
+  --background: #FAFCFD;
+  --foreground: #1F2630;
+  --muted: #4A5568;
 
-  /* Marca (logo) */
-  --color-primary:#2EC7D3;
-  --color-primary-hover:#1AAFB9;
-  --color-brown:#3B2A26;
-  --color-secondary:#E33A3A;
-  --color-secondary-hover:#C82F2F;
-  --color-accent:#F5C542;
+  /* Superficies */
+  --surface: #FFFFFF;
+  --surface-2: #F3F7F9;
+
+  /* Colores de marca */
+  --color-primary: #2EC7D3;
+  --color-primary-hover: #1AAFB9;
+  --color-brown: #3B2A26;
+  --color-secondary: #E33A3A;
+  --color-secondary-hover: #C82F2F;
+  --color-accent: #F5C542;
 
   /* Bordes & sombras */
-  --border-color:rgba(20,27,36,.15);
-  --shadow-sm:0 1px 3px rgba(16,24,40,.08);
-  --shadow-md:0 10px 24px rgba(16,24,40,.12);
+  --border-color: rgba(20,27,36,.15);
+  --shadow-sm: 0 1px 3px rgba(16,24,40,.08);
+  --shadow-md: 0 10px 24px rgba(16,24,40,.12);
 
   /* Formularios */
-  --field-bg:#FFFFFF;
-  --field-border:rgba(20,27,36,.20);
-  --field-text:#1F2630;
-  --field-placeholder:#6B7280;
-  --field-ring:rgba(46,199,211,.35);
-  --field-focus:var(--color-primary);
+  --field-bg: #FFFFFF;
+  --field-border: rgba(20,27,36,.20);
+  --field-text: #1F2630;
+  --field-placeholder: #6B7280;
+  --field-ring: rgba(46,199,211,.35);
+  --field-focus: var(--color-primary);
 
   --font-sans: Inter, ui-sans-serif, system-ui, Arial, sans-serif;
 }
 
-html,body{height:100%}
-body{
-  background:var(--background);
-  color:var(--foreground);
-  font-family:var(--font-sans);
-  margin:0;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
+/* ===== Reset ===== */
+html, body {
+  height: 100%;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Texto utilidades (estáticas) */
-.text-default{ color: var(--foreground); }
-.text-muted{ color: var(--muted); }
-.heading-brown,.text-brown{ color: var(--color-brown); }
-
-/* NAVBAR fijo oscuro (siempre) */
-.nav-solid{
-  background:var(--color-brown);
-  color:#fff;
-  border-bottom:1px solid rgba(255,255,255,.08);
+/* ===== Navbar ===== */
+.nav-solid {
+  background: var(--color-brown);
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
-.nav-solid a{ color:rgba(255,255,255,.92) }
-.nav-solid a:hover{ color:#fff }
-
-/* Botones */
-.btn-primary{
-  display:inline-block; padding:.75rem 1.25rem; border-radius:9999px;
-  background:var(--color-primary); color:#fff; font-weight:600; border:none;
-  box-shadow:var(--shadow-sm);
-  transition:transform .1s, box-shadow .2s, background .2s;
+.nav-solid a {
+  color: rgba(255,255,255,.92);
 }
-.btn-primary:hover{ background:var(--color-primary-hover); box-shadow:var(--shadow-md); transform:translateY(-1px) }
-
-.btn-secondary{
-  display:inline-block; padding:.75rem 1.25rem; border-radius:9999px;
-  border:1px solid var(--color-brown); background:transparent; color:var(--color-brown);
-  font-weight:600; transition:background .2s, color .2s, border-color .2s;
-}
-.btn-secondary:hover{ background:rgba(59,42,38,.08) }
-
-/* Tarjetas */
-.card{
-  border-radius:20px; border:1px solid var(--border-color);
-  background:var(--surface); padding:1.25rem; box-shadow:var(--shadow-sm);
-  transition:box-shadow .2s, transform .15s, background .2s, border-color .2s;
-}
-.card:hover{ box-shadow:var(--shadow-md); transform:translateY(-2px) }
-
-/* Tag / Chip */
-.tag-accent{
-  display:inline-flex; align-items:center; gap:.4rem;
-  padding:.25rem .65rem; border-radius:9999px; font-size:.85rem; font-weight:700;
-  background:var(--color-accent); color:#1E293B;
+.nav-solid a:hover {
+  color: #fff;
 }
 
-/* Enlaces de acción */
-a.link-action{ color:var(--color-secondary); text-decoration:underline }
-a.link-action:hover{ color:var(--color-secondary-hover) }
-
-/* Hero helper (opcional) */
-.hero-aqua{ background:linear-gradient(180deg,#2EC7D3 0%,#1AAFB9 100%); color:#fff }
-
-/* Formularios */
-.form label{
-  display:block; font-size:.9rem; font-weight:600; color:var(--foreground); margin-bottom:.4rem;
+/* ===== Botones ===== */
+.btn-primary {
+  display: inline-block;
+  padding: .75rem 1.25rem;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform .1s, box-shadow .2s, background .2s;
 }
-.form input,.form select,.form textarea{
-  width:100%; background:var(--field-bg); color:var(--field-text);
-  border:1px solid var(--field-border); border-radius:14px; padding:.6rem .8rem; outline:none;
-  transition:border-color .2s, box-shadow .2s, background .2s, color .2s;
-}
-.form input::placeholder,.form textarea::placeholder{ color:var(--field-placeholder) }
-.form input:focus,.form select:focus,.form textarea:focus{
-  border-color:var(--field-focus); box-shadow:0 0 0 3px var(--field-ring);
-}
-.form .help{ font-size:.8rem; color:var(--muted); margin-top:.25rem }
-
-/* Autofill */
-.form input:-webkit-autofill,
-.form input:-webkit-autofill:hover,
-.form input:-webkit-autofill:focus{
-  -webkit-text-fill-color:var(--field-text);
-  -webkit-box-shadow:0 0 0 1000px var(--field-bg) inset;
-  transition:background-color 5000s ease-in-out 0s;
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
-/* Borde fino */
-.thin-border{ border:1px solid var(--border-color); border-radius:16px }
+.btn-secondary {
+  display: inline-block;
+  padding: .75rem 1.25rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-brown);
+  background: transparent;
+  color: var(--color-brown);
+  font-weight: 600;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.btn-secondary:hover {
+  background: rgba(59,42,38,.08);
+}
+
+/* ===== Tarjetas ===== */
+.card {
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  background: var(--surface);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s, transform .15s;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* ===== Etiquetas ===== */
+.tag-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .25rem .65rem;
+  border-radius: 9999px;
+  font-size: .85rem;
+  font-weight: 700;
+  background: var(--color-accent);
+  color: #1E293B;
+}
+
+/* ===== Formularios ===== */
+.form label {
+  display: block;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: .4rem;
+}
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  background: var(--field-bg);
+  color: var(--field-text);
+  border: 1px solid var(--field-border);
+  border-radius: 14px;
+  padding: .6rem .8rem;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form input::placeholder,
+.form textarea::placeholder {
+  color: var(--field-placeholder);
+}
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  border-color: var(--field-focus);
+  box-shadow: 0 0 0 3px var(--field-ring);
+}
+
+/* ===== Borde fino ===== */
+.thin-border {
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+}
