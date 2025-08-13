@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { color, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const INFO = {
   nombre: "Central Pet",
@@ -41,7 +42,7 @@ const Section = ({
   className = "",
 }: {
   id: string;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) => (
   <section id={id} className={`max-w-7xl mx-auto px-6 py-20 ${className}`}>
@@ -74,19 +75,6 @@ function buildWhatsAppMessage({
     `• Comentarios: ${mensaje || "-"}`,
   ];
   return encodeURIComponent(lines.join("\n"));
-}
-
-/* Hook: detecta dark mode del SO */
-function useIsDarkMode() {
-  const [isDark, setIsDark] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    setIsDark(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setIsDark(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-  return isDark;
 }
 
 function WhatsAppForm({ waNumber }: { waNumber: string }) {
@@ -192,8 +180,6 @@ function WhatsAppForm({ waNumber }: { waNumber: string }) {
 }
 
 export default function Page() {
-  const isDark = useIsDarkMode();
-
   const whatsappUrl = `https://wa.me/${INFO.whatsapp}?text=${encodeURIComponent(
     "Hola, me gustaría agendar una cita 👋"
   )}`;
@@ -224,20 +210,13 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* NAV (inline styles según dark mode) */}
-      <header
-        className="sticky top-0 z-50 backdrop-blur border-b"
-        style={{
-          backgroundColor: isDark
-            ? "rgba(0,0,0,0.85)"
-            : "rgba(255,255,255,0.8)",
-        }}
-      >
+      {/* NAV: SIEMPRE light, usando .nav-solid del globals.css */}
+      <header className="sticky top-0 z-50 nav-solid">
         <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
           <div
             style={{
-              color: "#9f9591",
-              fontWeight: 600,
+              color: "var(--color-primary)",
+              fontWeight: 700,
               fontSize: "1.125rem",
             }}
           >
@@ -253,14 +232,7 @@ export default function Page() {
               { href: "#contacto", label: "Contacto" },
             ].map((i) => (
               <li key={i.href}>
-                <a
-                  href={i.href}
-                  className="hover:underline"
-                  style={{
-                    color: isDark ? "#e5e7eb" : "#222222",
-                    opacity: 0.9,
-                  }}
-                >
+                <a href={i.href} className="hover:underline">
                   {i.label}
                 </a>
               </li>
@@ -277,7 +249,7 @@ export default function Page() {
 
       {/* HERO */}
       <section className="relative overflow-hidden text-on-dark">
-        <div className="absolute inset-0 bg-[var(--color-primary)]" />
+        <div className="absolute inset-0 hero-aqua" />
         <div className="absolute inset-0">
           <Image
             src="/perrito.png"
@@ -318,7 +290,15 @@ export default function Page() {
             <a href={whatsappUrl} className="btn-primary">
               Agendar por WhatsApp
             </a>
-            <a href={telUrl} style={{ color: "white", backgroundColor: "var(--color-brown)" }} className="btn-secondary">
+            <a
+              href={telUrl}
+              className="btn-secondary"
+              style={{
+                backgroundColor: "transparent",
+                color: "var(--surface)",
+                borderColor: "var(--surface)",
+              }}
+            >
               Llamar: {INFO.telefono}
             </a>
           </motion.div>
@@ -338,30 +318,16 @@ export default function Page() {
           </h2>
           <span className="tag-accent">Shop &amp; Shower</span>
         </div>
-        <p className="mt-3 text-gray-600">
-          Todo lo esencial para su salud y bienestar.
-        </p>
+        <p className="mt-3 text-muted">Todo lo esencial para su salud y bienestar.</p>
 
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            {
-              t: "Consulta general",
-              d: "Evaluación, diagnóstico y plan de tratamiento.",
-            },
-            {
-              t: "Vacunas y desparasitación",
-              d: "Calendario completo para cachorros y adultos.",
-            },
+            { t: "Consulta general", d: "Evaluación, diagnóstico y plan de tratamiento." },
+            { t: "Vacunas y desparasitación", d: "Calendario completo para cachorros y adultos." },
             { t: "Urgencias", d: "Atención rápida en situaciones críticas." },
             { t: "Estética y baño", d: "Baño, corte y cuidado dermatológico." },
-            {
-              t: "Cirugía y esterilización",
-              d: "Protocolos seguros y control del dolor.",
-            },
-            {
-              t: "Laboratorio y estudios",
-              d: "Análisis hematológicos, imagen y más.",
-            },
+            { t: "Cirugía y esterilización", d: "Protocolos seguros y control del dolor." },
+            { t: "Laboratorio y estudios", d: "Análisis hematológicos, imagen y más." },
           ].map((s, i) => (
             <motion.div
               key={i}
@@ -371,10 +337,8 @@ export default function Page() {
               transition={{ duration: 0.4, delay: i * 0.05 }}
               className="card"
             >
-              <h3 className="font-semibold text-lg text-[var(--color-brown)]">
-                {s.t}
-              </h3>
-              <p className="mt-2 text-gray-600">{s.d}</p>
+              <h3 className="font-semibold text-lg text-[var(--color-brown)]">{s.t}</h3>
+              <p className="mt-2 text-muted">{s.d}</p>
             </motion.div>
           ))}
         </div>
@@ -387,35 +351,24 @@ export default function Page() {
             <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
               Equipo cercano y profesional
             </h2>
-            <p className="mt-4 text-gray-600">
+            <p className="mt-4 text-muted">
               Somos un equipo con años de experiencia clínica y un trato humano.
               Te explicamos cada decisión médica con claridad y opciones.
             </p>
             <div className="mt-6 flex gap-3">
-              <a href={whatsappUrl} className="btn-primary">
-                Agendar cita
-              </a>
-              <a href="#contacto" className="btn-secondary">
-                Cómo llegar
-              </a>
+              <a href={whatsappUrl} className="btn-primary">Agendar cita</a>
+              <a href="#contacto" className="btn-secondary">Cómo llegar</a>
             </div>
           </div>
           <div className="relative h-72 md:h-96 rounded-2xl overflow-hidden">
-            <Image
-              src="/perrito.png"
-              alt="Equipo veterinario"
-              fill
-              className="object-cover"
-            />
+            <Image src="/perrito.png" alt="Equipo veterinario" fill className="object-cover" />
           </div>
         </div>
       </Section>
 
       {/* TESTIMONIOS */}
       <Section id="testimonios" className="text-on-light">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
-          Testimonios
-        </h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">Testimonios</h2>
         <div className="mt-8 grid md:grid-cols-3 gap-6">
           {TESTIMONIOS.map((c, i) => (
             <a
@@ -426,10 +379,8 @@ export default function Page() {
               className="card transition duration-200 hover:shadow-lg transform hover:-translate-y-1 cursor-pointer block"
               aria-label={`Abrir reseña de ${c.autor} en Google Maps`}
             >
-              <p className="text-gray-700 italic">“{c.texto}”</p>
-              <footer className="mt-3 text-sm text-gray-500">
-                — {c.autor}
-              </footer>
+              <p className="italic text-default">“{c.texto}”</p>
+              <footer className="mt-3 text-sm" style={{ color: "#6b7280" }}>— {c.autor}</footer>
               <span className="mt-4 inline-block text-sm text-[var(--color-secondary)] underline">
                 Ver reseña en Google Maps
               </span>
@@ -440,27 +391,16 @@ export default function Page() {
 
       {/* FAQ */}
       <Section id="faq" className="text-on-light">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
-          Preguntas frecuentes
-        </h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">Preguntas frecuentes</h2>
         <div className="mt-6 space-y-4">
           {[
-            {
-              q: "¿Atienden urgencias?",
-              a: "Sí. Recomendamos avisar por WhatsApp para preparar el ingreso.",
-            },
-            {
-              q: "¿Trabajan con citas?",
-              a: "Sí. Agenda por WhatsApp para evitar esperas.",
-            },
-            {
-              q: "¿Aceptan todas las razas y especies?",
-              a: "Perros y gatos. Para especies exóticas, consúltanos primero.",
-            },
+            { q: "¿Atienden urgencias?", a: "Sí. Recomendamos avisar por WhatsApp para preparar el ingreso." },
+            { q: "¿Trabajan con citas?", a: "Sí. Agenda por WhatsApp para evitar esperas." },
+            { q: "¿Aceptan todas las razas y especies?", a: "Perros y gatos. Para especies exóticas, consúltanos primero." },
           ].map((f, i) => (
             <details key={i} className="rounded-xl border bg-white p-4">
-              <summary className="cursor-pointer font-medium text-black">{f.q}</summary>
-              <p className="mt-2 text-gray-600">{f.a}</p>
+              <summary className="cursor-pointer font-medium text-default">{f.q}</summary>
+              <p className="mt-2 text-muted">{f.a}</p>
             </details>
           ))}
         </div>
@@ -468,34 +408,27 @@ export default function Page() {
 
       {/* CONTACTO */}
       <Section id="contacto" className="text-on-light">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">
-          Contacto
-        </h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-brown)]">Contacto</h2>
         <div className="mt-6 grid lg:grid-cols-2 gap-8">
           <div className="card">
             <h3 className="text-xl font-semibold text-[var(--color-brown)] mb-4">
               Agenda por WhatsApp
             </h3>
             <WhatsAppForm waNumber={INFO.whatsapp} />
-            <p className="mt-3 text-sm text-gray-500">
+            <p className="mt-3 text-sm" style={{ color: "#6b7280" }}>
               Al enviar, te redirigiremos a WhatsApp con el mensaje armado.
             </p>
           </div>
 
-          <div className="space-y-3 text-gray-700">
-            <p>
-              <strong>Dirección:</strong> {INFO.direccion}
-            </p>
+          <div className="space-y-3 text-default">
+            <p><strong>Dirección:</strong> {INFO.direccion}</p>
             <p>
               <strong>Horario:</strong>{" "}
               <span style={{ whiteSpace: "pre-line" }}>{INFO.horario}</span>
             </p>
             <p>
               <strong>Teléfono:</strong>{" "}
-              <a
-                className="underline text-[var(--color-secondary)]"
-                href={telUrl}
-              >
+              <a className="underline text-[var(--color-secondary)]" href={telUrl}>
                 {INFO.telefono}
               </a>
             </p>
@@ -522,9 +455,9 @@ export default function Page() {
       </Section>
 
       {/* FOOTER */}
-      <footer className="border-t py-8 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} {INFO.nombre}. Todos los derechos
-        reservados.
+      <footer className="border-t py-8 text-center text-sm" style={{ color: "#6b7280", borderColor: "var(--border-color)" }}>
+        © {new Date().getFullYear()} {INFO.nombre}. Todos los derechos reservados.
+        <a href="https://agsolutions.dev/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline font-medium">AG Solution Dev</a>
       </footer>
     </>
   );
