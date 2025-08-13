@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { color, motion } from "framer-motion";
 
 const INFO = {
   nombre: "Central Pet",
@@ -229,14 +229,14 @@ export default function Page() {
         className="sticky top-0 z-50 backdrop-blur border-b"
         style={{
           backgroundColor: isDark
-            ? "rgba(16,20,24,0.85)"
+            ? "rgba(0,0,0,0.85)"
             : "rgba(255,255,255,0.8)",
         }}
       >
         <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
           <div
             style={{
-              color: "#6e6663",
+              color: "#9f9591",
               fontWeight: 600,
               fontSize: "1.125rem",
             }}
@@ -318,7 +318,7 @@ export default function Page() {
             <a href={whatsappUrl} className="btn-primary">
               Agendar por WhatsApp
             </a>
-            <a href={telUrl} className="btn-secondary">
+            <a href={telUrl} style={{ color: "white", backgroundColor: "var(--color-brown)" }} className="btn-secondary">
               Llamar: {INFO.telefono}
             </a>
           </motion.div>
