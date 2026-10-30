@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "checks": [
+    "appointment data, trimming and optional fields",
+    "international WhatsApp link and Unicode round-trip",
+    "missing phone handled without dummy link",
+    "native modal and edit preservation present",
+    "responsive and reduced-motion styles present",
+    "five new optimized photographs"
+  ],
+  "assets": [
+    {
+      "file": "blowout/public/assets/vet-dog.webp",
+      "width": 760,
+      "height": 504,
+      "bytes": 68348
+    },
+    {
+      "file": "blowout/public/assets/vet-care.webp",
+      "width": 760,
+      "height": 504,
+      "bytes": 61816
+    },
+    {
+      "file": "blowout/public/assets/vet-paw.webp",
+      "width": 760,
+      "height": 504,
+      "bytes": 65412
+    },
+    {
+      "file": "blowout/public/assets/vet-cat.webp",
+      "width": 760,
+      "height": 504,
+      "bytes": 73950
+    },
+    {
+      "file": "blowout/public/assets/vet-hero.webp",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 198898
+    }
+  ]
+}

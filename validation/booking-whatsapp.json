@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "recipient": "523323553635",
+  "fields": [
+    "name",
+    "pet",
+    "species",
+    "service",
+    "date",
+    "note"
+  ],
+  "handoff": "prefilled draft; visitor sends in WhatsApp"
+}

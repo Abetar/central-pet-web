@@ -1,0 +1,24 @@
+{
+  "hero": {
+    "format": "webp",
+    "mediaType": "image/webp",
+    "width": 1024,
+    "height": 1536,
+    "space": "srgb",
+    "channels": 4,
+    "depth": "uchar",
+    "isProgressive": false,
+    "isPalette": false,
+    "hasProfile": false,
+    "hasAlpha": true,
+    "autoOrient": {
+      "width": 1024,
+      "height": 1536
+    }
+  },
+  "portraits": {
+    "width": 362,
+    "height": 362
+  },
+  "assets": 14
+}

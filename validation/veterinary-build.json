@@ -1,0 +1,11 @@
+{
+  "productionBuild": "passed",
+  "typecheck": "passed",
+  "productionHTTP": 200,
+  "animatedAssetHTTP": 200,
+  "animatedAssetBytes": 390364,
+  "sourceCopyReduction": "883 to 630 source text words; merged two repeated sections",
+  "animation": "Canvas texture breathing and localized pressure with SVG stethoscope",
+  "browserVisualInspection": "not available; native Canvas scene inspected",
+  "businessSetup": "Configure real WhatsApp and business details"
+}

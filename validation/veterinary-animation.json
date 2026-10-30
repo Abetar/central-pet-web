@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "changedChestPixels": 6061,
+  "changedFacePixels": 0,
+  "opaqueSubjectPixels": 128081,
+  "nativeFrameMilliseconds": [
+    18,
+    18,
+    14,
+    14,
+    14
+  ],
+  "checks": [
+    "texture breathing and localized chest compression",
+    "stable face and paws",
+    "damped instrument tracking without overshoot",
+    "SVG stethoscope tube follows chestpiece",
+    "pause and resume",
+    "reduced-motion stops loop",
+    "offscreen stops loop"
+  ],
+  "browserVisualQA": false
+}

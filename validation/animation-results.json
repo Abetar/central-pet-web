@@ -1,0 +1,20 @@
+{
+  "catSource": "1024x1536; 1000x1260 texture",
+  "render": "630x700",
+  "changedChestPixels": 18217,
+  "changedFacePixels": 0,
+  "opaqueSubjectPixels": 181657,
+  "frameMilliseconds": [
+    27,
+    16,
+    20
+  ],
+  "checks": [
+    "localized fur deformation",
+    "stable face",
+    "alpha mask",
+    "dryer path",
+    "pause response",
+    "reduced-motion path"
+  ]
+}

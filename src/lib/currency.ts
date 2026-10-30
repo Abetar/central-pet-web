@@ -1,0 +1,1 @@
+export function formatMXN(amount:number,withCode=true){const value=new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",minimumFractionDigits:0,maximumFractionDigits:2}).format(amount);return value+(withCode?" MXN":"");}
